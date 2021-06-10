@@ -22,7 +22,7 @@ const list = async (req, res, next) => {
             }
         }
     });
-    return res.json({ data: formatReviews })
+     res.json({ data: formatReviews })
 };
 
 const update = async (req, res, next) => {
@@ -30,10 +30,10 @@ const update = async (req, res, next) => {
         const updatedReview = { ...res.locals.review, ...req.body.data};
         const upD = await reviewsService.update(updatedReview);
         upD.critic = await reviewsService.reviewCritic(updatedReview.critic_id);
-        return res.json({ data: upD })
+         res.json({ data: upD })
     }
     else{
-        return next({
+         next({
             status: 400,
             message: 'Update failed'
         })
@@ -45,10 +45,10 @@ const reviewIdExists = async (req, res, next) => {
     const review = await reviewsService.read(Number(reviewId));
     if(review){
         res.locals.review = review;
-        return next()
+         next()
     }
     else{
-        return next({
+         next({
             status:404,
             message:'Review cannot be found.'
         });
@@ -58,7 +58,7 @@ const reviewIdExists = async (req, res, next) => {
 const destroy = async (req, res, next) => {
     const { review_id } = res.locals.review;
     await reviewsService.delete(review_id);
-    return res.sendStatus(204);
+     res.sendStatus(204);
 };
 
 

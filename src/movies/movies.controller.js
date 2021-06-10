@@ -4,9 +4,9 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const list = async (req, res, next) => {
   const { is_showing } = req.query;
   if (is_showing === "true") {
-    return res.json({ data: await moviesService.listIsShowingTrue(true) });
+     res.json({ data: await moviesService.listIsShowingTrue(true) });
   } else {
-    return res.json({ data: await moviesService.list() });
+     res.json({ data: await moviesService.list() });
   }
 };
 
@@ -15,9 +15,9 @@ const movieExists = async (req, res, next) => {
   const movie = await moviesService.read(movieId);
   if (movie) {
     res.locals.movie = movie;
-    return next();
+     next();
   } else {
-    return next({
+     next({
       status: 404,
       message: "Movie cannot be found.",
     });
@@ -25,7 +25,7 @@ const movieExists = async (req, res, next) => {
 };
 
 const read = async (req, res, next) => {
-  return res.json({ data: res.locals.movie });
+   res.json({ data: res.locals.movie });
 };
 
 module.exports = {
