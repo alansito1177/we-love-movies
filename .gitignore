@@ -1,0 +1,4 @@
+node_modules/
+.qualified-attached.json/
+.env
+.vercel
